@@ -1,0 +1,5 @@
+sceneSetups:
+- path: Assets/Scenes/race_track_lake.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
