@@ -210,7 +210,7 @@ public class CarController : MonoBehaviour
     // Initialize
     void Start()
     {	
-	resetPosition();
+	// resetPosition();
         if (centerOfMass != null)
             GetComponent<Rigidbody>().centerOfMass = centerOfMass.localPosition;
 
