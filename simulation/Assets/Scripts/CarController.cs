@@ -35,8 +35,6 @@ public class Server
     // tested
     public static void SendMessage(string message)
     {
-        //byte[] msg = System.Text.Encoding.ASCII.GetBytes(message);
-        //stream.Write(msg, 0, msg.Length);
         Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
         stream.Write(data, 0, data.Length);
         stream.Flush();
@@ -210,7 +208,7 @@ public class CarController : MonoBehaviour
     // Initialize
     void Start()
     {	
-	resetPosition();
+	    //resetPosition();
         if (centerOfMass != null)
             GetComponent<Rigidbody>().centerOfMass = centerOfMass.localPosition;
 
@@ -219,7 +217,6 @@ public class CarController : MonoBehaviour
         this.timeSteps = 0;
         this.tempTimeSteps = 0;
         this.stepsPerAction = 4;
-
         this.crashed = false;
         this.actions = new char[2];
         this.actions[0] = 'd';
@@ -230,18 +227,7 @@ public class CarController : MonoBehaviour
     void Update()
     {
 
-        // Steering
-        Vector3 carDir = transform.forward;
-        float fVelo = GetComponent<Rigidbody>().velocity.magnitude;
-        Vector3 veloDir = GetComponent<Rigidbody>().velocity * (1 / fVelo);
-        float angle = -Mathf.Asin(Mathf.Clamp(Vector3.Cross(veloDir, carDir).y, -1, 1));
-        float optimalSteering = angle / (wheels[0].maxSteeringAngle * Mathf.Deg2Rad);
-        if (fVelo < 1)
-            optimalSteering = 0;
-
-        float steerInput = 0;
-
-
+        // send info when time step ends.
         if (this.tempTimeSteps >= this.stepsPerAction)
         {
             this.tempTimeSteps = 0;
@@ -254,23 +240,15 @@ public class CarController : MonoBehaviour
             if (this.crashed) crash_value = "1";
             else crash_value = "0";
             string infoToSend = angle_from_centre + ", " + distance + ", " + speed + ", " + crash_value;
-
-            Server.SendMessage("action done");
-
-            string temp = Server.WaitForString();
-
             Server.SendMessage(infoToSend);
-
-            Server.WaitForString(); // "got it" message
-            // Debug.Log("The simulator got the information");
         }
 
+        // Wait for action if temp step is starting out
         if (this.tempTimeSteps == 0)
         {
-            Server.SendMessage("requesting action");
-
             // receive that action as a string
             String temp = Server.WaitForString();
+            print(temp);
             if (temp == "reset")
             {
                 // if the action is to reset, reset the position and set the action to do nothing for 4 frames so that we get 4 screenshots in.
@@ -278,11 +256,25 @@ public class CarController : MonoBehaviour
                 this.timeSteps = 0;
                 this.tempTimeSteps = 0;
                 this.crashed = false;
-		resetPosition();
+                if(this.timeSteps > 0)
+                {
+                    resetPosition();
+                }
+		        
             }
             this.actions = temp.ToCharArray();
-
         }
+
+        // Steering
+        Vector3 carDir = transform.forward;
+        float fVelo = GetComponent<Rigidbody>().velocity.magnitude;
+        Vector3 veloDir = GetComponent<Rigidbody>().velocity * (1 / fVelo);
+        float angle = -Mathf.Asin(Mathf.Clamp(Vector3.Cross(veloDir, carDir).y, -1, 1));
+        float optimalSteering = angle / (wheels[0].maxSteeringAngle * Mathf.Deg2Rad);
+        if (fVelo < 1)
+            optimalSteering = 0;
+
+        float steerInput = 0;
 
         // String will be a in the form of 'ef', where e is the acceleration action and f is the steering action.
         // Acceleration can have commands for b (brake), d (do nothing), a (accelerate) and steering will feature l (left), s (straight), r (right)
