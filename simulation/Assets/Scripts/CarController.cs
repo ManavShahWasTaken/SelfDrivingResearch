@@ -470,6 +470,25 @@ public class CarController : MonoBehaviour
         }
     }
 
+    // public int num_counter = 1;
+
+    public string ScreenShotName() {
+        string str = "Screenshots/scr" + (this.tempTimeSteps + 1) + ".png";
+        return str;
+    }
+
+    void LateUpdate() {
+        if (this.tempTimeSteps < 4) {
+            ScreenCapture.CaptureScreenshot(ScreenShotName());
+            // this.num_counter += 1;
+        }
+        else {
+        //    this.num_counter = 1;
+            this.tempTimeSteps = 0;
+            ScreenCapture.CaptureScreenshot(ScreenShotName());
+        }
+    }
+
     // // Debug GUI. Disable when not needed.
     // void OnGUI() {
     //     GUI.Label(new Rect(0, 60, 100, 200), "km/h: " + GetComponent<Rigidbody>().velocity.magnitude * 3.6f);
