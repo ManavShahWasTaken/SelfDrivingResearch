@@ -253,13 +253,13 @@ public class CarController : MonoBehaviour
             {
                 // if the action is to reset, reset the position and set the action to do nothing for 4 frames so that we get 4 screenshots in.
                 temp = "ds";
-                this.timeSteps = 0;
-                this.tempTimeSteps = 0;
-                this.crashed = false;
-                if(this.timeSteps > 0)
+                if (this.timeSteps > 0)
                 {
                     resetPosition();
                 }
+                this.timeSteps = 0;
+                this.tempTimeSteps = 0;
+                this.crashed = false;
 		        
             }
             this.actions = temp.ToCharArray();
