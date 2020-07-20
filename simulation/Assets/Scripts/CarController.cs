@@ -160,7 +160,7 @@ public class CarController : MonoBehaviour
     }
 
     // Resets the car's position to a random checkpoint on the track.
-    void resetPosition()
+    public void resetPosition()
     {
         GameObject checkpoint = Checkpoint.getRandomCheckpoint();
         // Transform parent = this.transform.parent;
