@@ -226,12 +226,13 @@ public class CarController : MonoBehaviour
 
     void Update()
     {
-
-        // send info when time step ends.
-        if (this.tempTimeSteps >= this.stepsPerAction)
+        if (this.tempTimeSteps == 5)
         {
-            this.tempTimeSteps = 0;
-
+            print("here");
+        }
+        // send info when time step ends.
+        if (this.tempTimeSteps >= this.stepsPerAction || this.crashed)
+        {
             // SOBI WORK FOR AGENT INFORMATION
             string angle_from_centre = input.GetValue(0).ToString();
             string distance = input.GetValue(1).ToString();
@@ -239,31 +240,35 @@ public class CarController : MonoBehaviour
             string crash_value;
             if (this.crashed) crash_value = "1";
             else crash_value = "0";
-            string infoToSend = angle_from_centre + ", " + distance + ", " + speed + ", " + crash_value;
+            string frames_captured = this.tempTimeSteps.ToString();
+            string infoToSend = angle_from_centre + ", " + distance + ", " + speed + ", " + crash_value + ", " + frames_captured;
             Server.SendMessage(infoToSend);
+            this.tempTimeSteps = 0;
         }
-
         // Wait for action if temp step is starting out
         if (this.tempTimeSteps == 0)
         {
             // receive that action as a string
             String temp = Server.WaitForString();
-            print(temp);
+            // print(temp);
             if (temp == "reset")
             {
                 // if the action is to reset, reset the position and set the action to do nothing for 4 frames so that we get 4 screenshots in.
                 temp = "ds";
-                this.timeSteps = 0;
-                this.tempTimeSteps = 0;
-                this.crashed = false;
-                if(this.timeSteps > 0)
+                if (this.timeSteps > 1)
                 {
                     resetPosition();
                 }
+                this.timeSteps = 0;
+                this.tempTimeSteps = 0;
+                this.crashed = false;
 		        
             }
             this.actions = temp.ToCharArray();
         }
+
+        this.tempTimeSteps++;
+        this.timeSteps++;
 
         // Steering
         Vector3 carDir = transform.forward;
@@ -281,9 +286,6 @@ public class CarController : MonoBehaviour
 
         char linear = this.actions[0];
         char steeringControl = this.actions[1];
-
-        this.tempTimeSteps++;
-        this.timeSteps++;
 
         // The following code will instruct agent to turn left, right or straight depending on command string
         if (steeringControl == 'l')
@@ -468,25 +470,25 @@ public class CarController : MonoBehaviour
                 absControl = true;
             }
         }
+        
     }
 
-    // public int num_counter = 1;
-
-    public string ScreenShotName() {
-        string str = "Screenshots/scr" + (this.tempTimeSteps + 1) + ".png";
+    public string ScreenShotName()
+    {
+        string temp = this.tempTimeSteps.ToString();
+        if(this.tempTimeSteps == 0)
+        {
+            temp = "1";
+        }
+        string str = "Screenshots/scr" + temp + ".png";
         return str;
     }
 
-    void LateUpdate() {
-        if (this.tempTimeSteps < 4) {
-            ScreenCapture.CaptureScreenshot(ScreenShotName());
-            // this.num_counter += 1;
-        }
-        else {
-        //    this.num_counter = 1;
-            this.tempTimeSteps = 0;
-            ScreenCapture.CaptureScreenshot(ScreenShotName());
-        }
+    void LateUpdate()
+    {
+        print(ScreenShotName());
+        // if (this.tempTimeSteps >= 1 && this.tempTimeSteps <= 4)
+        ScreenCapture.CaptureScreenshot(ScreenShotName());
     }
 
     // // Debug GUI. Disable when not needed.
