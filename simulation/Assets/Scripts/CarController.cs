@@ -478,6 +478,7 @@ public class CarController : MonoBehaviour
         string temp = this.tempTimeSteps.ToString();
         if(this.tempTimeSteps == 0)
         {
+            print("took initial screenshot");
             temp = "1";
         }
         string str = "Screenshots/scr" + temp + ".png";
