@@ -5,21 +5,36 @@ public class OffRoadChecker : MonoBehaviour
 {
     //private CarController carController;
     public CarController player;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<CarController>();
     }
-    // Detects if the car has left the track
+    //Detects if the car has left the track
+
     void OnTriggerExit(Collider collider)
     {
         print("Checker: " + collider.gameObject.name + ", " + collider.gameObject.tag);
         if (collider.gameObject.tag == "Track")
         {
             // player.resetPosition();
+            print("crashed");
             bool crashed = true;
             player.SendValue();
 
         }
     }
+
+    //void OnTriggerEnter(Collider collider)
+    //{
+    //    print("Checker: " + collider.gameObject.name + ", " + collider.gameObject.tag);
+    //    if (!(collider.gameObject.tag == "Track"))
+    //    {
+    //        // player.resetPosition();
+    //        bool crashed = true;
+    //        player.SendValue();
+
+    //    }
+    //}
 }

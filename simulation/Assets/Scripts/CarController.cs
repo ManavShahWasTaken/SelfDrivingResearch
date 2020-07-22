@@ -39,6 +39,12 @@ public class Server
         stream.Write(data, 0, data.Length);
         stream.Flush();
     }
+
+    public static void close()
+    {
+        stream.Close();
+        client.Close();
+    }
 }
 
 
@@ -190,7 +196,7 @@ public class CarController : MonoBehaviour
     //    if (!String.Equals(collision.gameObject.tag, "Track"))
     //    {
     //        this.crashed = true;
-    // resetPosition();
+    //
     //    }
     //}
 
@@ -243,8 +249,15 @@ public class CarController : MonoBehaviour
             string distance = input.GetValue(1).ToString();
             string speed = input.GetValue(2).ToString();
             string crash_value;
-            if (this.crashed) crash_value = "1";
-            else crash_value = "0";
+            if (this.crashed)
+            {
+                crash_value = "1";
+                print("detected crashed");
+            }
+            else
+            {
+                crash_value = "0";
+            }
             string frames_captured = this.tempTimeSteps.ToString();
             string infoToSend = angle_from_centre + ", " + distance + ", " + speed + ", " + crash_value + ", " + frames_captured;
             Server.SendMessage(infoToSend);
@@ -259,8 +272,9 @@ public class CarController : MonoBehaviour
             if (temp == "reset")
             {
                 // if the action is to reset, reset the position and set the action to do nothing for 4 frames so that we get 4 screenshots in.
+                print("reseting");
                 temp = "ds";
-                if (this.timeSteps > 1)
+                if (this.timeSteps > 3)
                 {
                     resetPosition();
                 }
@@ -268,6 +282,10 @@ public class CarController : MonoBehaviour
                 this.tempTimeSteps = 0;
                 this.crashed = false;
 		        
+            }
+            else
+            {
+                print("driving");
             }
             this.actions = temp.ToCharArray();
         }
@@ -288,9 +306,19 @@ public class CarController : MonoBehaviour
 
         // String will be a in the form of 'ef', where e is the acceleration action and f is the steering action.
         // Acceleration can have commands for b (brake), d (do nothing), a (accelerate) and steering will feature l (left), s (straight), r (right)
-
-        char linear = this.actions[0];
-        char steeringControl = this.actions[1];
+        char linear = 'd';
+        char steeringControl = 's';
+        try
+        {
+            linear = this.actions[0];
+            steeringControl = this.actions[1];
+        }
+        catch(Exception e)
+        {
+            print("Index Out of Bounds error. Closed connection");
+            Server.close();
+        }
+        
 
         // The following code will instruct agent to turn left, right or straight depending on command string
         if (steeringControl == 'l')
@@ -492,7 +520,7 @@ public class CarController : MonoBehaviour
 
     void LateUpdate()
     {
-        print(ScreenShotName());
+        //print(ScreenShotName());
         // if (this.tempTimeSteps >= 1 && this.tempTimeSteps <= 4)
         ScreenCapture.CaptureScreenshot(ScreenShotName());
     }
