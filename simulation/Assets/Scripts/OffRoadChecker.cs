@@ -16,9 +16,9 @@ public class OffRoadChecker : MonoBehaviour
         print("Checker: " + collider.gameObject.name + ", " + collider.gameObject.tag);
         if (collider.gameObject.tag == "Track")
         {
-            player.resetPosition();
-            //bool crashed = true;
-            //player.SendValue();
+            //player.resetPosition();
+            bool crashed = true;
+            player.SendValue();
 
         }
     }
