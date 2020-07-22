@@ -153,7 +153,7 @@ public class CarController : MonoBehaviour
     // This variable holds the 3 data values from AgentInformation.
     public double[] input = new double[3];
 
-    //The following method obtains the 3 values from AgentInformation in the form of an Array.
+    // The following method obtains the 3 values from AgentInformation in the form of an Array.
     public void UpdateValues(double[] input_data)
     {
         input = input_data;
@@ -173,25 +173,30 @@ public class CarController : MonoBehaviour
 
 
     // Detects if the car has left the track
-    void OnCollisionExit(Collision collision)
-    {
-        print(collision.gameObject.name);
-        if (String.Equals(collision.gameObject.name, "Track"))
-        {
-            this.crashed = true;
-            // resetPosition();
-        }
-    }
+    // void OnCollisionExit(Collision collision)
+    //{
+    //    print(collision.gameObject.name);
+    //    if (String.Equals(collision.gameObject.name, "Track"))
+    //    {
+    //        this.crashed = true;
+    //        // resetPosition();
+    //    }
+    //}
 
     // Detects if the car has left the track
-    void OnCollisionEnter(Collision collision)
-    {
-        print(collision.gameObject.name);
-        if (!String.Equals(collision.gameObject.tag, "Track"))
-        {
-            this.crashed = true;
-            // resetPosition();
-        }
+    //void OnCollisionEnter(Collision collision)
+    //{
+    //    print(collision.gameObject.name);
+    //    if (!String.Equals(collision.gameObject.tag, "Track"))
+    //    {
+    //        this.crashed = true;
+    // resetPosition();
+    //    }
+    //}
+
+    // The following method determines whether the car has crashed or not
+    public void SendValue() {
+        this.crashed = true;
     }
 
 
@@ -478,6 +483,7 @@ public class CarController : MonoBehaviour
         string temp = this.tempTimeSteps.ToString();
         if(this.tempTimeSteps == 0)
         {
+            print("took initial screenshot");
             temp = "1";
         }
         string str = "Screenshots/scr" + temp + ".png";

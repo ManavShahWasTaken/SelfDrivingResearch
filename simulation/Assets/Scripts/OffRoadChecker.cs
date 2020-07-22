@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class OffRoadChecker : MonoBehaviour
 {
+    //private CarController carController;
     public CarController player;
     // Start is called before the first frame update
     void Start()
@@ -11,16 +11,15 @@ public class OffRoadChecker : MonoBehaviour
         player = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<CarController>();
     }
     // Detects if the car has left the track
-    void OnCollisionExit(Collision collision)
+    void OnTriggerExit(Collider collider)
     {
-        print(collision.gameObject.name);
-        if (collision.gameObject.name == "Track")
+        print("Checker: " + collider.gameObject.name + ", " + collider.gameObject.tag);
+        if (collider.gameObject.tag == "Track")
         {
             player.resetPosition();
+            //bool crashed = true;
+            //player.SendValue();
+
         }
     }
-    // // Update is called once per frame
-    // void Update()
-    // {
-    // }
 }

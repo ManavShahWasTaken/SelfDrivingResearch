@@ -4553,6 +4553,81 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2102096510}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &641714805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 641714806}
+  - component: {fileID: 641714807}
+  - component: {fileID: 641714808}
+  - component: {fileID: 641714809}
+  m_Layer: 0
+  m_Name: RoadDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &641714806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641714805}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.33, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1195219515}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &641714807
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641714805}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 0.1, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &641714808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641714805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e28685138dd8d4a91890003e903344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+--- !u!54 &641714809
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641714805}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &641817616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6627,7 +6702,7 @@ PrefabInstance:
     - target: {fileID: 8473150534863266293, guid: 65fc6d261252488419c903bf7917e3a0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -34.4
+      value: -28.71
       objectReference: {fileID: 0}
     - target: {fileID: 8473150534863266293, guid: 65fc6d261252488419c903bf7917e3a0,
         type: 3}
@@ -6637,7 +6712,7 @@ PrefabInstance:
     - target: {fileID: 8473150534863266293, guid: 65fc6d261252488419c903bf7917e3a0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -35.2
+      value: -33.89
       objectReference: {fileID: 0}
     - target: {fileID: 8473150534863266293, guid: 65fc6d261252488419c903bf7917e3a0,
         type: 3}
@@ -6731,12 +6806,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65fc6d261252488419c903bf7917e3a0, type: 3}
---- !u!4 &831044405 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8473150535462242057, guid: 65fc6d261252488419c903bf7917e3a0,
-    type: 3}
-  m_PrefabInstance: {fileID: 831044404}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &839954885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9090,6 +9159,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4888696495062042301, guid: 471a04d5858906843a6d2c654364ebb0,
     type: 3}
   m_PrefabInstance: {fileID: 255947698}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1195219515 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8473150535462242057, guid: 65fc6d261252488419c903bf7917e3a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 831044404}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1224150992
 PrefabInstance:
@@ -13668,64 +13743,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 471a04d5858906843a6d2c654364ebb0, type: 3}
---- !u!1 &2017312475
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2017312476}
-  - component: {fileID: 2017312477}
-  - component: {fileID: 2017312478}
-  m_Layer: 0
-  m_Name: RoadDetector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2017312476
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2017312475}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.85, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 831044405}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2017312477
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2017312475}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3, y: 2, z: 5}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2017312478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2017312475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59e28685138dd8d4a91890003e903344, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!1001 &2021872097
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -14,7 +14,6 @@ public class AgentInformation : MonoBehaviour
     protected double angle_from_road;
     protected double distance_from_road;
 
-    // private double[] data = {angle_from_road, distance_from_road, velocity};
     private CarController carController;
 
     // private Checkpoint checkpoint_info;
