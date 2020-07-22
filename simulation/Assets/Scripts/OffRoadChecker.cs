@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public class OffRoadChecker : MonoBehaviour
@@ -16,7 +16,7 @@ public class OffRoadChecker : MonoBehaviour
         print("Checker: " + collider.gameObject.name + ", " + collider.gameObject.tag);
         if (collider.gameObject.tag == "Track")
         {
-            //player.resetPosition();
+            // player.resetPosition();
             bool crashed = true;
             player.SendValue();
 
