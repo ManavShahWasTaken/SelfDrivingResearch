@@ -285,7 +285,7 @@ public class CarController : MonoBehaviour
             }
             else
             {
-                print("driving");
+                // print("driving");
             }
             this.actions = temp.ToCharArray();
         }
